@@ -1,0 +1,28 @@
+{
+  "name": "flipkart_wrapper",
+  "version": "1.0.0",
+  "description": "A tool which can be used to query flipkart for product listings once you get your affiliate key",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stoic65/flipkart_wrapper.git"
+  },
+  "keywords": [
+    "flipkart",
+    "affiliate",
+    "api"
+  ],
+  "author": "R.Varun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stoic65/flipkart_wrapper/issues"
+  },
+  "homepage": "https://github.com/stoic65/flipkart_wrapper#readme",
+  "dependencies": {
+    "async": "^2.0.0-rc.6",
+    "request": "^2.72.0"
+  }
+}
