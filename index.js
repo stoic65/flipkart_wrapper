@@ -3,9 +3,10 @@ var request = require('request');
 var async = require('async')
 
 
-function wrapperObject(affId)
+function wrapperObject(affId,affToken)
 {
 	this.affId = affId;
+	this.affToken = affToken;
 }
 
 
@@ -20,7 +21,7 @@ function categoryProcessor(item,callback)
 	callback(null,categoryObj);
 
 }
-
+exports.mainClass = wrapperObject;
 
 
 
@@ -89,11 +90,52 @@ wrapperObject.prototype.getThisCategoryLink = function(opts,callback)
 
 	});
 }
-
-
-module.exports = function(affId)
+wrapperObject.prototype.searchProduct = function(opts,callback)
 {
-	var obj = new wrapperObject(affId);
+	if(opts['searchKey'] == undefined || opts['resultCount']<0)
+	{
+		callback(new Error("Error in search product options"),null);
+		return;
+	}
+	reqOpts= {
+		url : "https://affiliate-api.flipkart.net/affiliate/1.0/search.json",	
+		headers:{
+			"Fk-Affiliate-Id":this.affId,
+			"Fk-Affiliate-Token":this.affToken
+		},
+		qs:{
+			query:opts['searchKey'],
+			resultCount:2
+		},
+		method : "GET",
+		qs:{
+			query:opts['searchKey'],
+			resultCount:parseInt(opts['resultCount'],10)
+		}
+	}
+
+	request(reqOpts,function(err,response,body){
+		if(err)callback(err,null);
+		else callback(null,body);
+	});
+}
+
+wrapperObject.prototype.getDeltaFeed = function(opts,callback)
+{
+	if(opts['link']==undefined)
+	{
+		callback(new Error("No link provided"),null)
+		return;
+	}
+
+
+
+}
+
+
+module.exports = function(affId,affToken)
+{
+	var obj = new wrapperObject(affId,affToken);
 	return obj;
 }
 
